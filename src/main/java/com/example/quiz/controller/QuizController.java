@@ -91,5 +91,13 @@ public class QuizController {
         return "redirect:/quiz";
     }
 
+    @GetMapping("/play")
+    public String play(Model model){
+        model.addAttribute("play", "플레이하기");
+        //서비스에 멤버리스트 정보 요청
+        List<QuizDto> quizList = service.getAllList();
+        model.addAttribute("list", quizList);
+        return "/quiz/play";
+    }
 
 }
