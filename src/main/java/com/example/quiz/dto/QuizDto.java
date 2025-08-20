@@ -1,6 +1,7 @@
 package com.example.quiz.dto;
 
 import com.example.quiz.entity.Quiz;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class QuizDto {
 
     private Long id;
+    @NotBlank(message = "퀴즈내용을 입력하셔야 합니다.")
     private String question;
     private boolean answerTrue;
     private String memberId;

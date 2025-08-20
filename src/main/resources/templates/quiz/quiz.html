@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body align="center">
 <h1>퀴즈 목록</h1>
-<table border="1">
+<table border="1" align="center">
   <thead>
     <tr>
   <th>id</th>
@@ -17,13 +17,27 @@
   <th>삭제</th>
   </tr>
   </thead>
-  <tbody>
-  <th>15</th>
-  <th>옛날ㅇㅇ</th>
-  <th>O</th>
-  <th>김형민</th>
-  <th>변경</th>
-  <th>삭제</th>
+  <tbody >
+  <tr th:if="${list}==null">
+    <td colspan="6">데이터가 없습니다.</td>
+  </tr>
+  <tr th:unless="${list} == null" th:each="quiz:${list}" th:object="${quiz}">
+  <td th:text="*{id}">15</td>
+  <td th:text="*{question}">옛날ㅇㅇ</td>
+  <td th:text="*{answerTrue}">O</td>
+  <td th:text="*{memberId}">김형민</td>
+  <td>
+    <form th:action="@{/member/updateView}" method="get">
+      <input type="submit" value="변경">
+      <input type="hidden" name="updateId" th:value="*{id}">
+    </form>
+  </td>
+  <td>
+    <form th:action="@{|/member/delete/*{id}|}" method="post">
+      <input  type="submit" value="삭제">
+    </form>
+  </td>
+  </tr>
   </tbody>
 </table>
 <a th:href="@{/}">메인화면</a>
