@@ -63,12 +63,26 @@ public class QuizController {
         return "redirect:/quiz";
     }
 
+    @GetMapping("/updateView")
+    public String updateView(@RequestParam("updateId") Long updateId, Model model) {
+        // 1. 받은 수정 아이디로 데이터를 검색해온다.(DTO)
+        QuizDto dto = service.findQuiz(updateId);
+        // 2. DTO가 비어있는지 확인한다. ID의 유무를 확인 -> 조치를 취함
+        if (ObjectUtils.isEmpty(dto)) {
+            return "redirect:/quiz";
+        } else {
+            // 3. 받은 DTO를 수정폼으로 보낸다.
+            model.addAttribute("quiz", dto);
+            return "/quiz/update";
+        }
+    }
+
     @PostMapping("/update")
-    public String update(@Valid @ModelAttribute("dto") QuizDto dto,
+    public String update(@Valid @ModelAttribute("quiz") QuizDto dto,
                          BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()) {
-            return "update";
+            return "/quiz/update";
         }
 
 //        System.out.println(dto);

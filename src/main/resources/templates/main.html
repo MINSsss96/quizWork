@@ -7,14 +7,14 @@
 <body>
 <ul>
     <div>
-    <li><a th:href="@{/quiz}">퀴즈 목록</a></li>
+        <li><a th:href="@{/quiz}">퀴즈 목록</a></li>
     </div>
     <div>
         <li><a th:href="@{/quiz/insertForm}">퀴즈 등록</a></li>
     </div>
-    <div th:href="@{/quiz/id}">퀴즈 수정 폼</div>
-    <div th:href="@{/quiz/update}">퀴즈 수정</div>
-    <div th:href="@{/quiz/delete}">퀴즈 삭제</div>
+    <div>
+        <li><a th:href="@{/quiz/updateView}">퀴즈 수정 폼</a></li>
+    </div>
     <div th:href="@{/quiz/play}">퀴즈 플레이</div>
     <div th:href="@{/quiz/check}">퀴즈 답 체크</div>
 </ul>

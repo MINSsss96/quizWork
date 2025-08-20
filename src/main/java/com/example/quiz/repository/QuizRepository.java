@@ -20,4 +20,7 @@ public interface QuizRepository extends JpaRepository<Quiz, Long> {
     // 주소로 검색
     @Query(value = " SELECT * FROM quiz WHERE question LIKE %:keyword% ORDER BY id", nativeQuery = true)
     List<Quiz> searchQuestion(@Param("keyword")String keyword);
+
+//    @Query(value = " SELCET * FROM quiz ORDER BY RAND() LIMIT 1",nativeQuery = true)
+//    List<Quiz> searchPlay(@Param("keyword")String keyword);
 }

@@ -68,7 +68,7 @@ public class QuizService {
         repository.deleteById(id);
     }
 
-    public QuizDto findMember(Long updateId) {
+    public QuizDto findQuiz(Long updateId) {
         // 검색해보기
         // 비어있는지 검사해서 찾으면 DTO로 변환 후 돌려주고
         // 없으면 null 리턴

@@ -5,6 +5,38 @@
     <title>Title</title>
 </head>
 <body>
+<h1>OX Quiz Application</h1>
+<h3>변경 폼</h3>
+<form th:action="@{/quiz/update}" method="post" th:object="${quiz}">
+    <div>
+        <label for="id">ID</label>
+        <input type="text"  id="id" name="id" th:field="*{id}" disabled>
+        <input type="hidden" name="id" th:value="*{id}">
+    </div>
+    <div>
+        <label for="question">퀴즈내용</label>
+        <input type="text" id="question" name="question" th:field="*{question}">
+        <span th:errors="*{question}" style="font-size : 10; color : red"></span>
+    </div>
+    <div>
+        <label for="answerTrue">퀴즈정답</label>
+        <label><input type="radio" name="answerTrue" th:field="*{answerTrue}" value="true"> O</label>
+        <label><input type="radio" name="answerTrue" th:field="*{answerTrue}" value="false"> X</label>
+    </div>
+    <div>
+        <label for="memberId">작성자</label>
+        <input type="text" name="memberId" id="memberId" th:field="*{memberId}">
+        <span th:errors="*{memberId}" style="font-size : 10; color : red"></span>
+    </div>
+    <div>
+        <input type="submit" value="등록">
+    </div>
+</form>
+<br>
+<hr>
+<br>
+<a th:href="@{/}">메인리스트 페이지 이동</a>
+
 
 </body>
 </html>

@@ -31,6 +31,7 @@ public class QuizDto {
 
     public static Quiz toDto(QuizDto dto){
         Quiz quiz = new Quiz();
+        quiz.setId(dto.getId());
         quiz.setQuestion(dto.getQuestion());
         quiz.setAnswerTrue(dto.isAnswerTrue());
         quiz.setMemberId(dto.getMemberId());
