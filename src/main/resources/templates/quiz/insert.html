@@ -7,27 +7,28 @@
 <body>
 <h1>OX Quiz Application</h1>
 <h3>등록 폼</h3>
-<!--<form th:action="@{/quiz/insert}" method="get" th:object="${quiz}">-->
+<form th:action="@{/quiz/insert}" method="post" th:object="${quiz}">
 <div>
-    <label for="quizContent">퀴즈내용 :</label>
+    <label for="question">퀴즈내용 :</label>
 </div>
-<div>
-    <textarea type="text" cols="40" rows="8" name="quizContent" id="quizContent"></textarea>
+<div >
+    <textarea cols="40" rows="8" name="question" id="question" th:field="*{question}"></textarea>
 </div>
     <div>
         <label>퀴즈정답</label>
-        <label><input type="radio" name="answer" value="O"> O</label>
-        <label><input type="radio" name="answer" value="X"> X</label>
+        <label><input type="radio" name="answerTrue" th:field="*{answerTrue}" value="true"> O</label>
+        <label><input type="radio" name="answerTrue" th:field="*{answerTrue}" value="false"> X</label>
     </div>
 <div>
 <label>작성자 :</label>
 </div>
 <div>
-    <label><input type="text" name="user"></label>
+    <label><input type="text" name="memberId" id="memberId" th:field="*{memberId}"></label>
 </div>
     <div>
         <input type="submit" value="송신">
     </div>
-<!--</form>-->
+</form>
+<a th:href="@{/}">메인화면</a>
 </body>
 </html>

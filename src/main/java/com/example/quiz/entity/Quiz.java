@@ -1,8 +1,6 @@
 package com.example.quiz.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -10,8 +8,11 @@ import lombok.Data;
 
 public class Quiz {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(length = 50, nullable = false)
-private String question;
-private Long answerTrue;
-private Long answerFalse;
+    private String question;
+    private boolean answerTrue;
+    private String memberId;
+
 }

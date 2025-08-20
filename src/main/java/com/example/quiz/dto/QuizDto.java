@@ -1,6 +1,5 @@
 package com.example.quiz.dto;
 
-import com.example.quiz.entity.Member;
 import com.example.quiz.entity.Quiz;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,25 +12,26 @@ import lombok.NoArgsConstructor;
 
 public class QuizDto {
 
+    private Long id;
     private String question;
-    private Long answerTrue;
-    private Long answerFalse;
+    private boolean answerTrue;
+    private String memberId;
 
-    public static QuizDto fromEntity(Quiz quiz) {
+
+    public static QuizDto fromQuizEntity(Quiz quiz) {
         return new QuizDto(
+                quiz.getId(),
                 quiz.getQuestion(),
-                quiz.getAnswerTrue(),
-                quiz.getAnswerFalse()
+                quiz.isAnswerTrue(),
+                quiz.getMemberId()
         );
     }
 
-    public static Member toDto(MemberDto dto){
-        Member member = new Member();
-        member.setId(dto.getId());
-        member.setId(dto.getId());
-        member.setPassword(dto.getPassword());
-        member.setAnswerTrue(dto.getAnswerTrue());
-        member.setAnswerFalse(dto.getAnswerFalse());
-        return member;
+    public static Quiz toDto(QuizDto dto){
+        Quiz quiz = new Quiz();
+        quiz.setQuestion(dto.getQuestion());
+        quiz.setAnswerTrue(dto.isAnswerTrue());
+        quiz.setMemberId(dto.getMemberId());
+        return quiz;
     }
 }
