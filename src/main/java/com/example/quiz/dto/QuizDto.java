@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class QuizDto {
 
     private Long id;
-    @NotBlank(message = "퀴즈내용을 입력하셔야 합니다.")
+    @NotBlank(message = "공백일 수 없습니다.")
     private String question;
     private boolean answerTrue;
     private String memberId;

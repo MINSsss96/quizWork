@@ -27,13 +27,13 @@
   <td th:text="*{answerTrue}">O</td>
   <td th:text="*{memberId}">김형민</td>
   <td>
-    <form th:action="@{/member/updateView}" method="get">
+    <form th:action="@{/quiz/updateView}" method="get">
       <input type="submit" value="변경">
       <input type="hidden" name="updateId" th:value="*{id}">
     </form>
   </td>
   <td>
-    <form th:action="@{|/member/delete/*{id}|}" method="post">
+    <form th:action="@{|/quiz/delete/*{id}|}" method="post">
       <input  type="submit" value="삭제">
     </form>
   </td>

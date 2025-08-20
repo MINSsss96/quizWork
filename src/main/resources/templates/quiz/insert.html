@@ -10,11 +10,13 @@
 <form th:action="@{/quiz/insert}" method="post" th:object="${quiz}">
 <div>
     <label for="question">퀴즈내용 :</label>
-    <span th:errors="${dto.question}" style="font-size : 10; color : red"></span>
 </div>
 <div >
     <textarea cols="40" rows="8" name="question" id="question" th:field="*{question}"></textarea>
 </div>
+    <div>
+        <span th:errors="*{question}" style="font-size : 10; color : red"></span>
+    </div>
     <div>
         <label>퀴즈정답</label>
         <label><input type="radio" name="answerTrue" th:field="*{answerTrue}" value="true"> O</label>

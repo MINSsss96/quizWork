@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,8 +57,25 @@ public class QuizController {
         return "redirect:/quiz";
     }
 
-    @PostMapping("/delete")
-    public String quizDelete(){
-        return "/quiz/delete";
+    @PostMapping("/delete/{id}")
+    public String quizDelete(@PathVariable("id")Long id){
+        service.deleteQuiz(id);
+        return "redirect:/quiz";
     }
+
+    @PostMapping("/update")
+    public String update(@Valid @ModelAttribute("dto") QuizDto dto,
+                         BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            return "update";
+        }
+
+//        System.out.println(dto);
+        service.updateQuiz(dto);
+
+        return "redirect:/quiz";
+    }
+
+
 }
