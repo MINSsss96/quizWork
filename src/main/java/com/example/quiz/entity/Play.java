@@ -10,8 +10,6 @@ public class Play {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(length = 50, nullable = false)
-    private String question;
-    private boolean answerTrue;
+    private Long quizId;         // 어떤 퀴즈에 대한
+    private String userAnswer;   // 유저의 입력 답안
 }

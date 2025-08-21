@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>퀴즈</title>
+</head>
+<body>
+<h2>OX 퀴즈</h2>
+<form action="/play/check" method="post">
+    <p th:text="${quiz.question}">문제 내용</p>
+    <input type="hidden" name="quizId" th:value="${quiz.id}" />
+
+    <label><input type="radio" name="userAnswer" value="O" required /> O</label>
+    <label><input type="radio" name="userAnswer" value="X" /> X</label>
+
+    <button type="submit">제출</button>
+</form>
+</body>
+</html>
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>OX 퀴즈 플레이</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>OX 퀴즈 게임 : PLAY</h1>-->
+
+<!--<form action="/play/submit" method="post">-->
+<!--    <div th:each="quiz, iterStat : ${list}">-->
+<!--        <p>-->
+<!--            <strong>문제 [[${iterStat.index + 1}]]:</strong>-->
+<!--            <span th:text="${quiz.question}">문제 내용</span>-->
+<!--        </p>-->
+
+<!--        &lt;!&ndash; 퀴즈 ID hidden &ndash;&gt;-->
+<!--        <input type="hidden" th:name="answers[__${iterStat.index}__].quizId" th:value="${quiz.id}" />-->
+
+<!--        &lt;!&ndash; O/X 선택 &ndash;&gt;-->
+<!--        <label>-->
+<!--            <input type="radio"-->
+<!--                   th:name="answers[__${iterStat.index}__].userAnswer"-->
+<!--                   value="O"-->
+<!--                   required /> O-->
+<!--        </label>-->
+<!--        <label>-->
+<!--            <input type="radio"-->
+<!--                   th:name="answers[__${iterStat.index}__].userAnswer"-->
+<!--                   value="X" /> X-->
+<!--        </label>-->
+
+<!--        <hr/>-->
+<!--    </div>-->
+
+<!--    <button type="submit">제출</button>-->
+<!--</form>-->
+
+<!--<br/>-->
+<!--<a th:href="@{/}">메인화면</a>-->
+<!--</body>-->
+<!--</html>-->
+<!--<html xmlns:th="www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>OX 퀴즈 게임 : PLAY</h1>-->
+<!--<form action="/play/submit" method="post">-->
+<!--    <div th:each="quiz, iterStat : ${list}">-->
+<!--        <p th:text="${quiz.question}">문제</p>-->
+<!--        <input type="hidden" th:name="answers[__${iterStat.index}__].quizId" th:value="${quiz.id}" />-->
+<!--        <input type="text" th:name="answers[__${iterStat.index}__].userAnswer" />-->
+<!--    </div>-->
+<!--    <button type="submit">제출</button>-->
+<!--</form>-->
+<!--&lt;!&ndash;<div th:unless="${list} == null" th:each="quiz:${list}" th:object="${quiz}">&ndash;&gt;-->
+<!--&lt;!&ndash;<div>퀴즈</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div th:if="${list}==null"> 데이터가 없습니다.</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div th:text="*{question}">바늘 한 쌍은 모두 22개이다.</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div>O</div><div>x</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--<a th:href="@{/}">메인화면</a>-->
+<!--</body>-->
+<!--</html>-->

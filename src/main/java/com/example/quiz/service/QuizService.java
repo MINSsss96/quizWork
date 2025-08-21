@@ -115,4 +115,9 @@ public class QuizService {
         }
 
     }
+
+    public QuizDto getRandomQuiz() {
+        Quiz quiz = QuizRepository.findRandomQuiz();
+        return QuizDto.fromQuizEntity(quiz);
+    }
 }
