@@ -14,5 +14,7 @@ public interface PlayRepository extends JpaRepository<Play, Long> {
         @Query(value = " SELECT * FROM quiz ORDER BY RAND() LIMIT 1",nativeQuery = true)
         List<Quiz> searchPlay(@Param("keyword")String keyword);
 
+        List<Play> findByQuizId(Long quizId);
 
+        List<Play> findByMemberId(Long memberId);
 }

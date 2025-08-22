@@ -10,6 +10,16 @@ public class Play {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long quizId;         // 어떤 퀴즈에 대한
-    private String userAnswer;   // 유저의 입력 답안
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Quiz quiz;
+
+    private boolean userAnswer;
+
+    private boolean correct;
+
 }

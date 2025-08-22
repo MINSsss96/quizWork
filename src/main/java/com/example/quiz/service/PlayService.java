@@ -1,8 +1,14 @@
 package com.example.quiz.service;
 
+import com.example.quiz.entity.Member;
+import com.example.quiz.entity.Play;
+import com.example.quiz.entity.Quiz;
+import com.example.quiz.repository.MemberRepository;
 import com.example.quiz.repository.PlayRepository;
 import com.example.quiz.repository.QuizRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PlayService {
@@ -13,6 +19,37 @@ public class PlayService {
     public PlayService(PlayRepository repository, QuizRepository quizRepository) {
         this.repository = repository;
         this.QuizRepository = quizRepository;
+    }
+
+    public void savePlay(Long memberId, Long quizId, boolean userAnswer) {
+        Member member = MemberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("사용자 없음"));
+
+        Quiz quiz = QuizRepository.findById(quizId)
+                .orElseThrow(() -> new RuntimeException("퀴즈 없음"));
+
+        boolean correct = (quiz.isAnswerTrue() == userAnswer);
+
+        Play play = Play.builder()
+                .member(member)
+                .quiz(quiz)
+                .userAnswer(userAnswer)
+                .correct(correct)
+                .build();
+
+        PlayRepository.save(play);
+    }
+
+    public double getQuizAccuracyRate(Long quizId) {
+        List<Play> plays = PlayRepository.findByQuizId(quizId);
+        if (plays.isEmpty()) return 0.0;
+
+        long correctCount = plays.stream().filter(Play::isCorrect).count();
+        return ((double) correctCount / plays.size()) * 100;
+    }
+
+    public List<Play> getPlayHistoryByMember(Long memberId) {
+        return PlayRepository.findByMemberId(memberId);
     }
 
 //    public List<PlayDto> getAllList() {

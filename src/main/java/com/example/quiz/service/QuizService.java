@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class QuizService {
@@ -117,7 +118,11 @@ public class QuizService {
     }
 
     public QuizDto getRandomQuiz() {
-        Quiz quiz = QuizRepository.findRandomQuiz();
-        return QuizDto.fromQuizEntity(quiz);
+        List<QuizDto> allQuizzes = getAllList();
+        if (allQuizzes.isEmpty()) throw new IllegalStateException("등록된 퀴즈가 없습니다.");
+
+        int randomIndex = new Random().nextInt(allQuizzes.size());
+        return allQuizzes.get(randomIndex);
     }
+
 }
