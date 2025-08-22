@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>메뉴</title>
 </head>
 <body>
-<ul>
-    <div>
+
+<div th:if="${session.loginMember != null}">
+    <p>환영합니다, [[${session.loginMember.username}]]님!</p>
+    <ul>
         <li><a th:href="@{/quiz}">퀴즈 목록</a></li>
-    </div>
-    <div>
         <li><a th:href="@{/quiz/insertForm}">퀴즈 등록</a></li>
-    </div>
-    <div>
         <li><a th:href="@{/play}">퀴즈 플레이</a></li>
-        </div>
-    <div th:href="@{/quiz/check}">퀴즈 답 체크</div>
-</ul>
+        <li><a th:href="@{/quiz/check}">퀴즈 답 체크</a></li>
+    </ul>
+</div>
+
+<div th:unless="${session.loginMember != null}">
+    <p>로그인 후 이용 가능합니다.</p>
+    <a th:href="@{/login}">로그인 하러 가기</a>
+</div>
+
 </body>
 </html>

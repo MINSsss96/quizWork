@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -18,34 +19,51 @@ public class PlayResultDto {
     public static class UserAnswer {
         private Long quizId;         // 어떤 퀴즈에 대한
         private String userAnswer;   // 유저의 입력 답안
+
     }
+    private Map<Long, Boolean> userAnswers;
 
-
-    private List<UserAnswer> answers;
-
-    // 점수 계산 메서드
-    public int calculateScore(List<QuizDto> correctQuizzes) {
+    public int calculateScore(List<QuizDto> correctAnswers) {
         int score = 0;
 
-        for (UserAnswer userAnswer : answers) {
-            for (QuizDto quiz : correctQuizzes) {
-                if (quiz.getId().equals(userAnswer.getQuizId())) {
+        for (QuizDto quiz : correctAnswers) {
+            Long quizId = quiz.getId();
+            boolean correctAnswer = quiz.isAnswerTrue(); // 정답 (true:O, false:X)
+            boolean userAnswer = userAnswers.getOrDefault(quizId, false); // 사용자의 답
 
-                    // 유저 답안을 boolean으로 변환 (O → true, X → false)
-                    boolean userAnswerBool = "O".equalsIgnoreCase(userAnswer.getUserAnswer().trim());
-
-                    // 정답과 비교
-                    if (quiz.isAnswerTrue() == userAnswerBool) {
-                        score++;
-                    }
-
-                    break;
-                }
+            if (correctAnswer == userAnswer) {
+                score++;
             }
         }
 
         return score;
     }
+
+//    private List<UserAnswer> answers;
+//
+//    // 점수 계산 메서드
+//    public int calculateScore(List<QuizDto> correctQuizzes) {
+//        int score = 0;
+//
+//        for (UserAnswer userAnswer : answers) {
+//            for (QuizDto quiz : correctQuizzes) {
+//                if (quiz.getId().equals(userAnswer.getQuizId())) {
+//
+//                    // 유저 답안을 boolean으로 변환 (O → true, X → false)
+//                    boolean userAnswerBool = "O".equalsIgnoreCase(userAnswer.getUserAnswer().trim());
+//
+//                    // 정답과 비교
+//                    if (quiz.isAnswerTrue() == userAnswerBool) {
+//                        score++;
+//                    }
+//
+//                    break;
+//                }
+//            }
+//        }
+//
+//        return score;
+//    }
 
 
 
