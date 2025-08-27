@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+<h2>회원가입</h2>
+<form th:action="@{/register}" method="post" th:object="${member}"
+      onsubmit="return confirmPassword()">
+    <div>
+        <label for="memberId">아이디</label>
+        <input type="text" name="email" id="email" th:field="*{memberId}" required>
+    </div>
+    <div>
+        <label for="password">비밀번호</label>
+        <input type="password" name="password" id="password" th:field="*{password}">
+    </div>
+    <div>
+        <label for="password2">비밀번호 확인</label>
+        <input type="password" name="password2" id="password2">
+    </div>
+    <br>
+    <input type="submit" value="회원가입">
+    <!--<form th:action="@{/register}" method="post">-->
+    <!--  <label for="memberId">아이디</label>-->
+    <!--  <input type="text" name="memberId" th:field="${dto.memberId}">-->
+    <!--  <span th:errors="${dto.memberId}" style="font-size : 10; color : red"></span>-->
+    <!--  -->
+    <!--&lt;!&ndash;  <label>아이디: <input type="text" name="username"/></label><br/>&ndash;&gt;-->
+    <!--  <div>-->
+    <!--    <label for="password">나이</label>-->
+    <!--    <input type="text" name="password" th:field="${dto.password}">-->
+    <!--    <span th:errors="${dto.password}" style="font-size : 10; color : red"></span>-->
+    <!--  </div>-->
+    <!--  <label>비밀번호: <input type="password" name="password"/></label><br/>-->
+    <!--  <button type="submit">회원가입</button>-->
+</form>
+
+<p>이미 계정이 있으신가요? <a th:href="@{/}">로그인 하러 가기</a></p>
+</body>
+</html>

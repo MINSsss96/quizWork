@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
@@ -19,4 +20,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     // 주소로 검색
     @Query(value = " SELECT * FROM member WHERE address LIKE %:keyword% ORDER BY id", nativeQuery = true)
     List<Member> searchAddress(@Param("keyword")String keyword);
+
+    Optional<Member> findByMemberIdAndPassword(String Id, String password);
 }

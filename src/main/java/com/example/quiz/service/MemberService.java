@@ -3,6 +3,7 @@ package com.example.quiz.service;
 import com.example.quiz.dto.MemberDto;
 import com.example.quiz.entity.Member;
 import com.example.quiz.repository.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -10,7 +11,6 @@ import java.util.List;
 
 @Service
 public class MemberService {
-
     // 리포지토리를 생성자 주입방법으로 가져오기
     private final MemberRepository repository;
 
@@ -22,29 +22,54 @@ public class MemberService {
     public List<MemberDto> getAllList() {
         List<Member> memberList = repository.findAll();
         System.out.println(memberList);
-        // 비어있는 DTO List 만들기
-//  ---- List<MemberDto> dtoList = new ArrayList<>();
-
-        // Entity List를 DTO List로 변환
-//        for (int i = 0; i < memberList.size(); i++) {
-//            // 리스트에 있는 엔티티를 하나씩 읽어서
-//            // Dto에 담는다.
-//            MemberDto dto = new MemberDto();
-//            dto.setId(memberList.get(i).getId());
-//            dto.setName(memberList.get(i).getName());
-//            dto.setAge(memberList.get(i).getAge());
-//            dto.setAddress(memberList.get(i).getAddress());
-//            dtoList.add(dto);
-//        }
-        // fromMemberEntity 메서드로 작업하기
-//        ----dtoList = memberList
         return memberList
                 .stream()
-                .map(x -> MemberDto.fromEntity(x))
+                .map(x -> MemberDto.fromMemberEntity(x))
                 .toList();
-
-//        return dtoList;
     }
+
+    public void saveMember(MemberDto dto) {
+        // dto -> Entity
+         Member member = MemberDto.toDto(dto);
+        // 저장
+        repository.save(member);
+    }
+
+    public MemberDto findOneUser(Long id) {
+        Member entity = repository.findById(id).orElse(null);
+        if(ObjectUtils.isEmpty(entity)){
+            return null;
+        }
+        return MemberDto.fromMemberEntity(entity);
+    }
+
+    // 리포지토리 통해서 멤버리스트 가져오기
+//    public List<MemberDto> getAllList() {
+//        List<Member> memberList = repository.findAll();
+//        System.out.println(memberList);
+//        // 비어있는 DTO List 만들기
+////  ---- List<MemberDto> dtoList = new ArrayList<>();
+//
+//        // Entity List를 DTO List로 변환
+////        for (int i = 0; i < memberList.size(); i++) {
+////            // 리스트에 있는 엔티티를 하나씩 읽어서
+////            // Dto에 담는다.
+////            MemberDto dto = new MemberDto();
+////            dto.setId(memberList.get(i).getId());
+////            dto.setName(memberList.get(i).getName());
+////            dto.setAge(memberList.get(i).getAge());
+////            dto.setAddress(memberList.get(i).getAddress());
+////            dtoList.add(dto);
+////        }
+//        // fromMemberEntity 메서드로 작업하기
+////        ----dtoList = memberList
+//        return memberList
+//                .stream()
+//                .map(x -> MemberDto.toEntity(x))
+//                .toList();
+//
+////        return dtoList;
+//    }
 
     public void insertMember(MemberDto dto) {
         // 3. 서비스에서 DTO를 entity로 바꾼다.
@@ -73,45 +98,65 @@ public class MemberService {
         // 없으면 null 리턴
         Member member = repository.findById(updateId).orElse(null);
         // member가 null 인지 확인
-        if (ObjectUtils.isEmpty(member)) {
+        if(ObjectUtils.isEmpty(member)){
             return null;
-        } else {
-            return MemberDto.fromEntity(member);
+        }else {
+            return MemberDto.fromMemberEntity(member);
         }
 
     }
+//
+//    public void updateMember(MemberDto dto) {
+//        // 1. 받은 DTO를 entity로 변환
+//        Member member = MemberDto.toDto(dto);
+//        // 2. 수정 요청
+//        repository.save(member);
+//    }
 
-    public void updateMember(MemberDto dto) {
-        // 1. 받은 DTO를 entity로 변환
-        Member member = MemberDto.toDto(dto);
-        // 2. 수정 요청
-        repository.save(member);
-    }
+//    public List<MemberDto> searchMember(String type, String keyword) {
+//        // 조건 1.
+//        // 1. type이 비어 있을 때 : 전체 검색
+//        // 2. type = 'name' -> searchName
+//        // 3. type = 'address' -> searchAddress
+//
+//        switch (type) {
+//            case "name":
+//                return repository.searchName(keyword)
+//                        .stream()
+//                        .map(x -> MemberDto.toDto(x))
+//                        .toList();
+//            case "address":
+//                return repository.searchAddress(keyword)
+//                        .stream()
+//                        .map(x -> MemberDto.toDto(x))
+//                        .toList();
+//            default:
+//                return repository
+//                        .searchQuery()
+//                        .stream()
+//                        .map(x -> MemberDto.toDto(x))
+//                        .toList();
+//        }
+//
+//    }
 
-    public List<MemberDto> searchMember(String type, String keyword) {
-        // 조건 1.
-        // 1. type이 비어 있을 때 : 전체 검색
-        // 2. type = 'name' -> searchName
-        // 3. type = 'address' -> searchAddress
+//    @Autowired
+//    private MemberRepository memberRepository; // DB 접근용 (JPA Repository)
+//
+//    // 로그인
+//    public Member login(String username, String password) {
+//        return memberRepository.findByMemberIdAndPassword(username, password)
+//                .orElse(null); // 없으면 null
+//    }
+//
+//    // 회원가입
+//    public void register(String username, String password) {
+//        Member member = new Member();
+//        member.setMemberId(username);
+//        member.setPassword(password);
+//        memberRepository.save(member);
+//    }
 
-        switch (type) {
-            case "name":
-                return repository.searchName(keyword)
-                        .stream()
-                        .map(x -> MemberDto.fromEntity(x))
-                        .toList();
-            case "address":
-                return repository.searchAddress(keyword)
-                        .stream()
-                        .map(x -> MemberDto.fromEntity(x))
-                        .toList();
-            default:
-                return repository
-                        .searchQuery()
-                        .stream()
-                        .map(x -> MemberDto.fromEntity(x))
-                        .toList();
-        }
 
-    }
+
 }
